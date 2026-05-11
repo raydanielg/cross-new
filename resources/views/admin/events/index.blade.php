@@ -91,41 +91,35 @@
         <!-- EVENTS LIST (CARD VIEW) -->
         <div class="row">
             @php
-                $events = [
-                    ['name' => 'Kilimanjaro Challenge', 'loc' => 'Moshi, Kilimanjaro', 'date' => '15-17 June 2026', 'reg' => '156/200', 'status' => 'Open', 'color' => 'success', 'icon' => 'fa-bicycle'],
-                    ['name' => 'Dar City Ride', 'loc' => 'Dar es Salaam', 'date' => '22 June 2026', 'reg' => '89/150', 'status' => 'Open', 'color' => 'success', 'icon' => 'fa-city'],
-                    ['name' => 'Usambara Classic', 'loc' => 'Lushoto, Tanga', 'date' => '05-07 July 2026', 'reg' => '234/250', 'status' => 'Open', 'color' => 'success', 'icon' => 'fa-mountain'],
-                    ['name' => 'Zanzibar Beach Tour', 'loc' => 'Zanzibar', 'date' => '22 June 2026', 'reg' => '45/100', 'status' => 'Almost Full', 'color' => 'warning', 'icon' => 'fa-umbrella-beach']
-                ];
+                $events = \App\Models\Event::all();
             @endphp
 
-            @foreach($events as $event)
+            @forelse($events as $event)
             <div class="col-md-6 mb-4">
-                <div class="card card-outline card-{{ $event['color'] }} shadow-sm h-100">
+                <div class="card card-outline card-{{ $event->color }} shadow-sm h-100">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-start mb-3">
                             <div>
-                                <h5 class="font-weight-bold mb-1"><i class="fas {{ $event['icon'] }} mr-2 text-muted"></i> {{ $event['name'] }}</h5>
-                                <p class="text-muted small mb-0"><i class="fas fa-map-marker-alt mr-1"></i> {{ $event['loc'] }}</p>
+                                <h5 class="font-weight-bold mb-1"><i class="fas {{ $event->icon }} mr-2 text-muted"></i> {{ $event->name }}</h5>
+                                <p class="text-muted small mb-0"><i class="fas fa-map-marker-alt mr-1"></i> {{ $event->location }}</p>
                             </div>
-                            <span class="badge badge-{{ $event['color'] }}">{{ $event['status'] }}</span>
+                            <span class="badge badge-{{ $event->color }}">{{ $event->status }}</span>
                         </div>
                         <div class="row mb-3">
                             <div class="col-6">
                                 <small class="text-muted d-block">Date</small>
-                                <b>{{ $event['date'] }}</b>
+                                <b>{{ $event->date_range }}</b>
                             </div>
                             <div class="col-6 text-right">
                                 <small class="text-muted d-block">Registrations</small>
-                                <b>{{ $event['reg'] }}</b>
+                                <b>{{ $event->registered_count }}/{{ $event->max_participants }}</b>
                             </div>
                         </div>
                         <div class="progress mb-3" style="height: 5px;">
                             @php 
-                                $parts = explode('/', $event['reg']);
-                                $percent = ($parts[0]/$parts[1]) * 100;
+                                $percent = ($event->registered_count / max($event->max_participants, 1)) * 100;
                             @endphp
-                            <div class="progress-bar bg-{{ $event['color'] }}" style="width: {{ $percent }}%"></div>
+                            <div class="progress-bar bg-{{ $event->color }}" style="width: {{ $percent }}%"></div>
                         </div>
                         <div class="d-flex gap-2">
                             <button class="btn btn-xs btn-outline-primary mr-1"><i class="fas fa-edit"></i> Edit</button>
@@ -135,7 +129,11 @@
                     </div>
                 </div>
             </div>
-            @endforeach
+            @empty
+            <div class="col-12">
+                <div class="alert alert-info">Hakuna matukio yaliyopatikana kwa sasa.</div>
+            </div>
+            @endforelse
         </div>
 
         <!-- PAGINATION -->
