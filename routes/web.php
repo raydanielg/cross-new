@@ -29,7 +29,11 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     // User Management
     Route::get('/users', function () { return view('admin.users.index'); })->name('admin.users');
     Route::get('/users/cyclists', function () { return view('admin.users.index'); })->name('admin.cyclists');
-    Route::get('/users/roles', function () { return view('admin.users.roles'); })->name('admin.roles');
+    // Roles Management
+    Route::get('/roles', function () { return view('admin.roles.index'); })->name('admin.roles');
+    Route::get('/roles/create', function () { return view('admin.roles.create'); })->name('admin.roles.create');
+    Route::get('/roles/edit/{id}', function () { return view('admin.roles.edit'); })->name('admin.roles.edit');
+    Route::get('/roles/permissions', function () { return view('admin.roles.permissions'); })->name('admin.roles.permissions');
 
     // Events
     Route::get('/events', function () { return view('admin.events.index'); })->name('admin.events');
