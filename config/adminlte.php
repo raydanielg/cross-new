@@ -336,8 +336,9 @@ return [
                 ],
                 [
                     'text' => 'Roles & Permissions',
-                    'url'  => 'admin/users/roles',
+                    'route'  => 'admin.roles',
                     'icon' => 'fas fa-fw fa-user-tag',
+                    'active' => ['admin/roles*'],
                 ],
             ],
         ],
