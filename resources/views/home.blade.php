@@ -26,7 +26,7 @@
                             <div class="col-md-8">
                                 <h3>Welcome Back, {{ Auth::user()->name }}!</h3>
                                 <p>Hali ya mfumo wa <b>Cross Tanzania Cycling Management System</b> leo ni shwari. Una usajili mpya 5 wa kufanyia kazi.</p>
-                                <a href="{{ route('admin.dashboard') }}/../analytics" class="btn btn-light btn-sm font-weight-bold shadow-sm mt-2">
+                                <a href="{{ route('admin.analytics') }}" class="btn btn-light btn-sm font-weight-bold shadow-sm mt-2">
                                     <i class="fas fa-chart-line mr-1"></i> View Detailed Analytics
                                 </a>
                             </div>

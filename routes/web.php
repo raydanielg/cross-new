@@ -25,6 +25,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::prefix('admin')->middleware(['auth'])->group(function () {
     // Dashboard
     Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('admin.dashboard');
+    Route::get('/analytics', function () { return view('admin.dashboard.analytics'); })->name('admin.analytics');
 
     // User Management
     Route::get('/users', function () { return view('admin.users.index'); })->name('admin.users');
